@@ -14,7 +14,7 @@ export function Contact({ profile }: ContactProps) {
     <section
       id="contato"
       aria-labelledby="contato-titulo"
-      className="below-fold scroll-mt-28 border-t-2 border-t-foreground py-16 sm:py-20 md:scroll-mt-20"
+      className="scroll-mt-28 border-t-2 border-t-foreground py-16 sm:py-20 md:scroll-mt-20"
     >
       <div className="wrap grid gap-3 lg:grid-cols-[200px_minmax(0,1fr)] lg:gap-6">
         <p className="eyebrow lg:pt-4">Contato</p>
