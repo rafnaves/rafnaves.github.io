@@ -30,7 +30,7 @@ export function MetricValue({ metric, index = 0 }: MetricValueProps) {
       </p>
       <p
         style={delay}
-        className="mt-1 font-display text-[clamp(2.1rem,5vw,3.4rem)] leading-none font-extrabold tabular-nums [font-stretch:110%] motion-safe:animate-rise"
+        className="mt-1 font-display text-[clamp(2.1rem,4.4vw,3.1rem)] leading-none font-extrabold whitespace-nowrap tabular-nums [font-stretch:110%] motion-safe:animate-rise"
       >
         {/* An icon, not "→": the arrow glyph is missing from the Google Fonts latin subset. */}
         <ArrowRight aria-hidden="true" strokeWidth={2.5} className="mr-1 inline size-[0.7em] align-[0.04em] text-signal" />
