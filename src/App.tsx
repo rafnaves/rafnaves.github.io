@@ -14,7 +14,7 @@ import { certifications } from "@/data/certifications";
 import { experience } from "@/data/experience";
 import { navItems, observedSectionIds } from "@/data/navigation";
 import { openSourceProjects } from "@/data/open-source";
-import { deltas, profile, stickers } from "@/data/profile";
+import { deltas, profile } from "@/data/profile";
 import { featuredProjects, sideProjects } from "@/data/projects";
 import { research } from "@/data/research";
 import { skills } from "@/data/skills";
@@ -30,10 +30,11 @@ export default function App() {
       </a>
       <Navbar name={profile.name} items={navItems} observedSectionIds={observedSectionIds} />
 
-      <main>
-        <Hero profile={profile} deltas={deltas} stickers={stickers} />
+      {/* Room for the fixed navbar, so the hero starts below it. */}
+      <main className="pt-(--header-h)">
+        <Hero profile={profile} deltas={deltas} />
 
-        <Section id="projetos" label="Em produção" title="Projetos principais">
+        <Section id="projetos" title="Projetos principais">
           <div className="grid gap-14">
             {featuredProjects.map((project) => (
               <ProjectFeatured key={project.id} project={project} />
@@ -41,7 +42,7 @@ export default function App() {
           </div>
         </Section>
 
-        <Section id="outros" label="Ferramentas e automações" title="Outros projetos" indent>
+        <Section id="outros" title="Outros projetos">
           <div className="grid gap-3.5 md:grid-cols-2">
             {sideProjects.map((project) => (
               <ProjectCard key={project.title} project={project} />
@@ -49,7 +50,7 @@ export default function App() {
           </div>
         </Section>
 
-        <Section id="open-source" label="No GitHub" title="Projetos open source" indent>
+        <Section id="open-source" title="Projetos open source">
           <div className="grid gap-10">
             {openSourceProjects.map((project) => (
               <OpenSourceProjectView key={project.id} project={project} />
@@ -57,19 +58,19 @@ export default function App() {
           </div>
         </Section>
 
-        <Section id="pesquisa" label="Iniciação científica" title="Pesquisa">
+        <Section id="pesquisa" title="Pesquisa">
           <ResearchList items={research} />
         </Section>
 
-        <Section id="trajetoria" label="Experiência e formação" title="Trajetória">
+        <Section id="trajetoria" title="Trajetória">
           <Timeline items={experience} />
         </Section>
 
-        <Section id="habilidades" label="Ferramentas" title="Habilidades">
+        <Section id="habilidades" title="Habilidades">
           <Skills groups={skills} />
         </Section>
 
-        <Section id="certificacoes" label="Credenciais" title="Certificações">
+        <Section id="certificacoes" title="Certificações">
           <Certifications items={certifications} />
         </Section>
 

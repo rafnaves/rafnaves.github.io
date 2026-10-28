@@ -1,45 +1,44 @@
 import { ArrowDown, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { Flow } from "@/types";
+import type { FlowStep } from "@/types";
 
 type FlowDiagramProps = {
-  flow: Flow;
+  steps: readonly FlowStep[];
+  /** Read by screen readers only, e.g. "Etapas do AVA". */
+  label: string;
 };
 
-/** Steps of a pipeline: a row on wide screens, a column on phones and tablets. */
-export function FlowDiagram({ flow }: FlowDiagramProps) {
-  const lastIndex = flow.steps.length - 1;
+/**
+ * Steps of a pipeline: a row on wide screens, a column on phones and tablets.
+ * The main step stands out only by its border and background.
+ */
+export function FlowDiagram({ steps, label }: FlowDiagramProps) {
+  const lastIndex = steps.length - 1;
 
   return (
-    <figure className="min-w-0 rounded-lg border bg-card p-4 sm:p-5">
-      <figcaption className="eyebrow mb-4 text-xs">{flow.caption}</figcaption>
-      <ol className="flex flex-col lg:flex-row">
-        {flow.steps.map((step, index) => (
-          <li key={step.title} className="flex min-w-0 flex-col lg:flex-1 lg:flex-row">
-            <div
-              className={cn(
-                "min-w-0 rounded-md border px-3 py-2.5 lg:flex-1",
-                step.highlight ? "border-primary bg-secondary" : "bg-background",
-              )}
-            >
-              <span className="flex items-center justify-between gap-2 font-mono text-[0.7rem] text-muted-foreground">
-                {String(index + 1).padStart(2, "0")}
-                {step.highlight && <span className="text-secondary-foreground">etapa-chave</span>}
-              </span>
-              <b className="mt-0.5 block font-display text-[0.9375rem] leading-snug font-bold">{step.title}</b>
-              <small className="mt-0.5 block font-mono text-[0.7rem] leading-snug break-words text-muted-foreground">
-                {step.detail}
-              </small>
-            </div>
-            {index < lastIndex && (
-              <span aria-hidden="true" className="flex items-center justify-center py-1 text-signal lg:px-1.5 lg:py-0">
-                <ArrowDown className="size-4 lg:hidden" />
-                <ArrowRight className="hidden size-4 lg:block" />
-              </span>
+    <ol aria-label={label} className="flex min-w-0 flex-col rounded-lg border bg-card p-3 sm:p-4 lg:flex-row">
+      {steps.map((step, index) => (
+        <li key={step.title} className="flex min-w-0 flex-col lg:flex-1 lg:flex-row">
+          <div
+            className={cn(
+              "min-w-0 rounded-md border px-3 py-2.5 lg:flex-1",
+              step.highlight ? "border-primary bg-secondary" : "bg-background",
             )}
-          </li>
-        ))}
-      </ol>
-    </figure>
+          >
+            <b className="block font-display text-[0.9375rem] leading-snug font-bold">{step.title}</b>
+            <small className="mt-0.5 block font-mono text-[0.7rem] leading-snug break-words text-muted-foreground">
+              {step.detail}
+            </small>
+            {step.highlight && <span className="sr-only">(etapa principal)</span>}
+          </div>
+          {index < lastIndex && (
+            <span aria-hidden="true" className="flex items-center justify-center py-1 text-signal lg:px-1.5 lg:py-0">
+              <ArrowDown className="size-4 lg:hidden" />
+              <ArrowRight className="hidden size-4 lg:block" />
+            </span>
+          )}
+        </li>
+      ))}
+    </ol>
   );
 }

@@ -24,7 +24,7 @@ export function Deltas({ items, className }: DeltasProps) {
     >
       {items.map((delta, index) => (
         <li key={delta.label} className={cn("flex min-w-0 flex-col justify-between gap-3 py-5 pr-3", cellBorders[index])}>
-          <MetricValue metric={delta} size="lg" index={index} />
+          <MetricValue metric={delta} index={index} />
           <a
             href={`#${delta.projectId}`}
             className="inline-flex w-fit items-center gap-1 font-mono text-xs text-primary hover:underline"

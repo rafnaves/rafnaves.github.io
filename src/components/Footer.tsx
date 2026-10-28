@@ -11,16 +11,9 @@ export function Footer({ profile }: FooterProps) {
         <p>
           {profile.name} · {profile.footnote}
         </p>
-        <p className="shrink-0">
-          Feito com React e TypeScript ·{" "}
-          <a href={profile.sourceCode.href} target="_blank" rel="noopener noreferrer" className="text-foreground underline hover:text-primary">
-            {profile.sourceCode.label}
-          </a>{" "}
-          ·{" "}
-          <a href="#topo" className="text-foreground underline hover:text-primary">
-            voltar ao topo ↑
-          </a>
-        </p>
+        <a href="#topo" className="shrink-0 text-foreground underline hover:text-primary">
+          voltar ao topo ↑
+        </a>
       </div>
     </footer>
   );

@@ -7,7 +7,7 @@ export const research: readonly ResearchItem[] = [
     description:
       "Detecção de rastreadores Bluetooth maliciosos, como AirTags usados para seguir pessoas, com um motor de três filtros em cascata: frequência de exposição, co-movimento por distância de Haversine e persistência temporal.",
     result:
-      "98% de recall e F1 de 82,1% no dataset de campo BLE-Doubt, superando em recall o estado da arte, com validação estratificada 70/30.",
+      "F1 de 82,1% no dataset de campo BLE-Doubt, superando em recall o estado da arte, com validação estratificada 70/30.",
     metric: { value: "98%", label: "de recall" },
   },
   {

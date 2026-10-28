@@ -32,7 +32,20 @@
   --stage: #e6ebf5;
   --stage-dot: rgb(19 24 32 / 0.1);
 
+  /* Solid call-to-action: stays saturated with white text in both themes. */
+  --action: #1d4ed8;
+  --action-foreground: #ffffff;
+
+  /* Fixed navbar height: two rows on phones (brand, then links), one row from md up. */
+  --header-h: 97px;
+
   color-scheme: light;
+}
+
+@media (width >= 48rem) {
+  :root {
+    --header-h: 57px;
+  }
 }
 
 .dark {
@@ -59,6 +72,9 @@
   --stage: #121822;
   --stage-dot: rgb(230 235 242 / 0.08);
 
+  --action: #335ce8;
+  --action-foreground: #ffffff;
+
   color-scheme: dark;
 }
 
@@ -83,6 +99,8 @@
   --color-ring: var(--ring);
   --color-signal: var(--signal);
   --color-stage: var(--stage);
+  --color-action: var(--action);
+  --color-action-foreground: var(--action-foreground);
 
   --radius-sm: 4px;
   --radius-md: var(--radius);
@@ -197,4 +215,39 @@
 @utility below-fold {
   content-visibility: auto;
   contain-intrinsic-size: auto 1200px;
+}
+
+/* Anchor targets stop just under the fixed navbar. */
+@utility anchor-offset {
+  scroll-margin-top: calc(var(--header-h) + 1.25rem);
+}
+
+/* Printing: no navbar or buttons, light colors on white paper, everything rendered. */
+@media print {
+  header,
+  button,
+  [data-slot="button"] {
+    display: none !important;
+  }
+
+  :root,
+  .dark {
+    --background: #ffffff;
+    --foreground: #131820;
+    --card: #ffffff;
+    --card-foreground: #131820;
+    --primary: #1d4ed8;
+    --secondary: #e3eafc;
+    --secondary-foreground: #1d4ed8;
+    --muted-foreground: #586273;
+    --border: #d4dae2;
+    --signal: #d9611f;
+    --stage: #f2f4f7;
+    --header-h: 0px;
+    color-scheme: light;
+  }
+
+  .below-fold {
+    content-visibility: visible;
+  }
 }

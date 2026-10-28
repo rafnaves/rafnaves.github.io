@@ -8,37 +8,25 @@ export type Profile = {
   role: string;
   location: string;
   education: string;
+  /** Fields of work, shown as chips under the role. */
+  areas: readonly string[];
   /** Opening sentence, with one phrase underlined in the hero. */
   headline: { before: string; highlight: string; after: string };
   opening: string;
   context: string;
-  availabilityTag: string;
-  availability: string;
   email: string;
   linkedin: ExternalLink;
   github: ExternalLink;
-  sourceCode: ExternalLink;
   footnote: string;
 };
 
-/** A result shown as "before → after", or as a single value when there is no baseline. */
-export type Metric = {
-  before?: string;
+/** A result shown as "before → after". */
+export type Delta = {
+  before: string;
   value: string;
   label: string;
-};
-
-export type Delta = Metric & {
-  before: string;
   projectId: string;
   projectLabel: string;
-};
-
-export type Sticker = {
-  kicker: string;
-  text: string;
-  tone: "paper" | "accent" | "ink";
-  rotation: number;
 };
 
 export type NavItem = {
@@ -52,11 +40,6 @@ export type FlowStep = {
   title: string;
   detail: string;
   highlight?: boolean;
-};
-
-export type Flow = {
-  caption: string;
-  steps: readonly FlowStep[];
 };
 
 type MediaBase = {
@@ -74,17 +57,10 @@ export type VideoSource = {
   type: "video/mp4" | "video/webm";
 };
 
-/** Video with controls, played on demand. */
+/** Muted video that loops while visible, with a pause button. */
 export type VideoMedia = MediaBase & {
   kind: "video";
   sources: readonly VideoSource[];
-  poster: string;
-};
-
-/** Short muted clip that loops while visible (converted from a GIF). */
-export type LoopMedia = MediaBase & {
-  kind: "loop";
-  src: string;
   poster: string;
 };
 
@@ -93,32 +69,27 @@ export type ImageMedia = MediaBase & {
   src: string;
 };
 
-export type Media = VideoMedia | LoopMedia | ImageMedia;
+export type Media = VideoMedia | ImageMedia;
 
 export type DetailBlock =
   | { kind: "text"; heading: string; body: string }
   | { kind: "list"; heading: string; items: readonly string[] };
-
-export type StatGroup = {
-  heading: string;
-  items: readonly Metric[];
-};
 
 export type FeaturedProject = {
   id: string;
   name: string;
   subtitle: string;
   status: string;
-  facts: readonly Metric[];
   summary: string;
   /** One item renders as a single player, several as a gallery. */
   showcase: readonly Media[];
   showcaseNote?: string;
-  flow: Flow;
+  flow: readonly FlowStep[];
   details: readonly [DetailBlock, ...DetailBlock[]];
   /** Extra media placed under the first detail block. */
   aside?: Media;
-  stats?: StatGroup;
+  /** One line of size figures, e.g. "270 rotas de API · 73 tabelas". */
+  figures?: string;
   stack: string;
 };
 
@@ -135,7 +106,7 @@ export type OpenSourceProject = {
   title: string;
   repo: ExternalLink;
   summary: string;
-  flow: Flow;
+  flow: readonly FlowStep[];
   stack: string;
 };
 
@@ -144,7 +115,7 @@ export type ResearchItem = {
   title: string;
   description: string;
   result: string;
-  metric?: Metric;
+  metric?: { value: string; label: string };
 };
 
 export type Experience = {

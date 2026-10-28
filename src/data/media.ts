@@ -1,4 +1,4 @@
-import type { ImageMedia, LoopMedia, VideoMedia } from "@/types";
+import type { ImageMedia, VideoMedia } from "@/types";
 
 // Every file here was reviewed before publishing: operator faces in the AVA video were
 // already blurred, the audio was removed, and the Firebreak screens use demo data
@@ -31,51 +31,47 @@ export const avaAssistantScreen: ImageMedia = {
   height: 617,
 };
 
-export const firebreakClips: readonly LoopMedia[] = [
+export const firebreakClips: readonly VideoMedia[] = [
   {
     id: "firebreak-copiloto",
-    kind: "loop",
+    kind: "video",
     label: "Copiloto",
-    caption:
-      "O agente monta a planilha e o report do turno e para: nada sai sem a aprovação de uma pessoa.",
+    caption: "O agente monta planilhas, reports e relatórios, e nada sai sem aprovação humana.",
     alt: "Copiloto do Firebreak com um plano de quatro passos, o último aguardando revisão, ao lado da prévia de um relatório com gráfico de barras.",
-    src: "/assets/firebreak/copiloto.mp4",
+    sources: [{ src: "/assets/firebreak/copiloto.mp4", type: "video/mp4" }],
     poster: "/assets/firebreak/copiloto-poster.webp",
     width: 900,
     height: 598,
   },
   {
     id: "firebreak-apollo",
-    kind: "loop",
+    kind: "video",
     label: "Apollo",
-    caption:
-      "Uma planilha nova entra e é ligada sozinha ao objeto Veículo pelo chassi, sem ninguém configurar nada.",
+    caption: "Uma fonte nova de dados entra e é ligada sozinha aos objetos certos, sem configuração manual.",
     alt: "Tela do Apollo ligando fontes como ERP e planilhas a um objeto Veículo, com o aviso de fonte nova entendida.",
-    src: "/assets/firebreak/apollo.mp4",
+    sources: [{ src: "/assets/firebreak/apollo.mp4", type: "video/mp4" }],
     poster: "/assets/firebreak/apollo-poster.webp",
     width: 900,
     height: 598,
   },
   {
     id: "firebreak-painel",
-    kind: "loop",
+    kind: "video",
     label: "Painel",
-    caption:
-      "O indicador cruza o limiar e o aviso sai sozinho; um clique abre os projetos em risco.",
+    caption: "Com os dados modelados como uma ontologia, a busca é ampla e rápida.",
     alt: "Painel da Manufatura com indicadores, um gráfico de avanço semanal abaixo do limiar e a lista de projetos em risco.",
-    src: "/assets/firebreak/painel.mp4",
+    sources: [{ src: "/assets/firebreak/painel.mp4", type: "video/mp4" }],
     poster: "/assets/firebreak/painel-poster.webp",
     width: 900,
     height: 598,
   },
   {
     id: "firebreak-visao-geral",
-    kind: "loop",
+    kind: "video",
     label: "Visão geral",
-    caption:
-      "Uma pergunta em linguagem natural cruza três fontes e mostra como os dados se ligam.",
+    caption: "Uma pergunta em linguagem natural cruza três fontes e mostra como os dados se ligam.",
     alt: "Página do Firebreak com o Copiloto respondendo uma pergunta sobre veículos e um grafo de como as fontes se ligam.",
-    src: "/assets/firebreak/visao-geral.mp4",
+    sources: [{ src: "/assets/firebreak/visao-geral.mp4", type: "video/mp4" }],
     poster: "/assets/firebreak/visao-geral-poster.webp",
     width: 1000,
     height: 624,
