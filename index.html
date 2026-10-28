@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Rafael Naves</title>
+
+<meta name="description" content="Portfólio de Rafael Naves, engenheiro de IA e dados: visão computacional, agentes de IA e engenharia de dados em produção.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: ficha técnica de engenharia. Coluna única com régua lateral de seções, números antes/depois em destaque, fluxos reais desenhados como etapas. */
+:root {
+  --bg: #F2F4F7;
+  --surface: #FFFFFF;
+  --ink: #131820;
+  --muted: #586273;
+  --line: #D4DAE2;
+  --accent: #1D4ED8;
+  --accent-soft: #E3EAFC;
+  --signal: #D9611F;
+  --font-display: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+  --step--1: 0.8125rem;
+  --step-0: 1rem;
+  --step-1: 1.25rem;
+  --step-2: 1.75rem;
+  --step-3: clamp(2rem, 5vw, 3rem);
+  --step-4: clamp(2.6rem, 8vw, 5.2rem);
+  --radius: 6px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0D1015;
+    --surface: #151A21;
+    --ink: #E6EBF2;
+    --muted: #97A2B2;
+    --line: #29313C;
+    --accent: #85A3FF;
+    --accent-soft: #1A2440;
+    --signal: #F0894A;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0D1015;
+  --surface: #151A21;
+  --ink: #E6EBF2;
+  --muted: #97A2B2;
+  --line: #29313C;
+  --accent: #85A3FF;
+  --accent-soft: #1A2440;
+  --signal: #F0894A;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: var(--step-0);
+  line-height: 1.6;
+}
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; line-height: 1.1; }
+
+.wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+
+/* Top bar */
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.topbar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+.topbar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding-block: 12px; }
+.mark { font-family: var(--font-display); font-weight: 800; font-stretch: 112%; letter-spacing: 0.01em; color: var(--ink); text-decoration: none; }
+.nav { display: flex; gap: 18px; flex-wrap: wrap; font-size: var(--step--1); }
+.nav a { color: var(--muted); text-decoration: none; }
+.nav a:hover { color: var(--ink); }
+
+/* Hero */
+.hero { padding-block: 56px 40px; }
+.eyebrow {
+  font-family: var(--font-mono); font-size: var(--step--1); color: var(--muted);
+  text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 14px;
+}
+.hero h1 { font-size: var(--step-4); font-weight: 850; font-stretch: 118%; letter-spacing: -0.01em; }
+.role { font-family: var(--font-display); font-size: var(--step-2); font-weight: 600; font-stretch: 100%; color: var(--accent); margin: 10px 0 0; }
+.lede { max-width: 62ch; color: var(--muted); font-size: 1.0625rem; margin: 20px 0 0; }
+.hero-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-body); font-size: 0.9375rem; font-weight: 500;
+  padding: 9px 14px; border-radius: var(--radius); border: 1px solid var(--line);
+  background: var(--surface); color: var(--ink); text-decoration: none; cursor: pointer;
+}
+.btn:hover { border-color: var(--accent); }
+.btn.primary { background: var(--accent); border-color: var(--accent); color: var(--surface); }
+
+/* Before / after strip */
+.deltas {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0;
+  margin-top: 40px; border-top: 2px solid var(--ink); border-bottom: 1px solid var(--line);
+}
+.delta { padding: 18px 16px 18px 0; min-width: 0; }
+.delta + .delta { padding-left: 16px; border-left: 1px solid var(--line); }
+.delta .before { font-family: var(--font-mono); font-size: var(--step--1); color: var(--muted); text-decoration: line-through; text-decoration-color: var(--signal); }
+.delta .after { font-family: var(--font-display); font-size: var(--step-3); font-weight: 800; font-stretch: 110%; line-height: 1.05; margin: 4px 0 6px; font-variant-numeric: tabular-nums; }
+.delta .after .arrow { color: var(--signal); font-weight: 600; margin-right: 4px; }
+.delta p { margin: 0; font-size: var(--step--1); color: var(--muted); line-height: 1.45; }
+@media (max-width: 760px) {
+  .deltas { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .delta:nth-child(3) { padding-left: 0; border-left: 0; }
+  .delta:nth-child(n+3) { border-top: 1px solid var(--line); }
+}
+
+/* Sections */
+section.block { padding-block: 56px; border-top: 1px solid var(--line); }
+.section-head { display: grid; grid-template-columns: 180px minmax(0, 1fr); gap: 24px; margin-bottom: 28px; align-items: baseline; }
+.section-head .label { font-family: var(--font-mono); font-size: var(--step--1); color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; }
+.section-head h2 { font-size: var(--step-3); font-weight: 800; font-stretch: 108%; }
+.body-col { margin-left: 204px; }
+@media (max-width: 760px) {
+  .section-head { grid-template-columns: 1fr; gap: 6px; }
+  .body-col { margin-left: 0; }
+}
+
+/* Featured project */
+.project { display: grid; gap: 18px; padding-bottom: 44px; }
+.project + .project { padding-top: 44px; border-top: 1px dashed var(--line); }
+.project-top { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 8px 16px; align-items: baseline; }
+.project h3 { font-size: var(--step-2); font-weight: 800; font-stretch: 105%; }
+.tag { font-family: var(--font-mono); font-size: var(--step--1); color: var(--muted); }
+.status { display: inline-flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent); background: var(--accent-soft); padding: 3px 8px; border-radius: 999px; }
+.status::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+.project .summary { max-width: 64ch; margin: 0; font-size: 1.0625rem; }
+.cols { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
+@media (max-width: 760px) { .cols { grid-template-columns: 1fr; } }
+.cols h4 { font-family: var(--font-mono); font-size: var(--step--1); text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); font-weight: 500; margin: 0 0 8px; }
+.cols p, .cols ul { margin: 0; }
+.cols ul { padding-left: 18px; display: grid; gap: 6px; }
+.facts { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 0; padding: 0; list-style: none; font-family: var(--font-mono); font-size: var(--step--1); color: var(--muted); }
+.facts strong { color: var(--ink); font-weight: 500; font-variant-numeric: tabular-nums; }
+.stack { font-family: var(--font-mono); font-size: var(--step--1); color: var(--muted); margin: 0; }
+.stack span { color: var(--ink); }
+
+/* Flow diagram */
+.flow-wrap { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 16px; overflow-x: auto; }
+.flow-cap { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin: 0 0 12px; }
+.flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 8px; margin: 0; padding: 0; list-style: none; counter-reset: step; }
+.flow li { display: flex; align-items: center; gap: 8px; }
+.flow .node { border: 1px solid var(--line); border-radius: var(--radius); padding: 8px 10px; background: var(--bg); min-width: 0; }
+.flow .node b { display: block; font-family: var(--font-display); font-weight: 700; font-size: 0.9375rem; }
+.flow .node small { display: block; font-family: var(--font-mono); font-size: 0.7rem; color: var(--muted); line-height: 1.35; }
+.flow li:not(:last-child)::after { content: "→"; color: var(--signal); font-weight: 600; }
+.flow .node.hl { border-color: var(--accent); background: var(--accent-soft); }
+
+/* Grid of other projects */
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+@media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.card h3 { font-size: var(--step-1); font-weight: 750; font-stretch: 104%; }
+.card p { margin: 0; color: var(--muted); font-size: 0.9375rem; }
+.card .result { color: var(--ink); }
+
+/* Timeline */
+.timeline { display: grid; gap: 0; margin: 0; padding: 0; list-style: none; }
+.timeline li { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 20px; padding: 18px 0; border-bottom: 1px solid var(--line); }
+.timeline li:first-child { padding-top: 0; }
+.timeline .when { font-family: var(--font-mono); font-size: var(--step--1); color: var(--muted); font-variant-numeric: tabular-nums; }
+.timeline h3 { font-size: var(--step-1); font-weight: 750; }
+.timeline .org { color: var(--muted); margin: 2px 0 8px; font-size: 0.9375rem; }
+.timeline p { margin: 0; max-width: 64ch; }
+@media (max-width: 600px) { .timeline li { grid-template-columns: 1fr; gap: 4px; } }
+
+/* Skills */
+.skills { display: grid; gap: 0; margin: 0; }
+.skills div { display: grid; grid-template-columns: 170px minmax(0, 1fr); gap: 20px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+.skills dt { font-family: var(--font-mono); font-size: var(--step--1); color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; padding-top: 2px; }
+.skills dd { margin: 0; }
+@media (max-width: 600px) { .skills div { grid-template-columns: 1fr; gap: 2px; } }
+
+/* Certifications */
+.certs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 28px; margin: 0; padding: 0; list-style: none; }
+.certs li { padding: 12px 0; border-bottom: 1px solid var(--line); min-width: 0; }
+.certs .issuer { display: block; font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+@media (max-width: 760px) { .certs { grid-template-columns: 1fr; } }
+
+/* Contact */
+.contact { padding-block: 64px 72px; border-top: 2px solid var(--ink); }
+.contact h2 { font-size: var(--step-3); font-weight: 850; font-stretch: 115%; }
+.contact p { color: var(--muted); max-width: 56ch; }
+.email-row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 18px; }
+.email { font-family: var(--font-mono); font-size: var(--step-1); color: var(--ink); user-select: all; word-break: break-all; }
+.copied { font-family: var(--font-mono); font-size: var(--step--1); color: var(--accent); }
+footer { padding-block: 24px; border-top: 1px solid var(--line); font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="mark" href="#topo">Rafael Naves</a>
+    <nav class="nav" aria-label="Seções">
+      <a href="#projetos">Projetos</a>
+      <a href="#open-source">Open source</a>
+      <a href="#pesquisa">Pesquisa</a>
+      <a href="#trajetoria">Trajetória</a>
+      <a href="#contato">Contato</a>
+    </nav>
+  </div>
+</header>
+
+<main id="topo">
+  <div class="wrap">
+    <section class="hero">
+      <p class="eyebrow">Catalão, GO · Ciência da Computação, UFCAT</p>
+      <h1>Rafael Naves</h1>
+      <p class="role">Engenheiro de IA e Dados</p>
+      <p class="lede">Construo sistemas de IA que saem do protótipo e entram em produção. Hoje faço isso no grupo de inovação de uma montadora, com visão computacional, agentes de IA e engenharia de dados aplicados a processos reais da fábrica.</p>
+      <div class="hero-links">
+        <a class="btn primary" href="#projetos">Ver projetos</a>
+        <a class="btn" href="https://www.linkedin.com/in/rafael-naves-ai" target="_blank" rel="noopener">LinkedIn</a>
+        <a class="btn" href="https://github.com/rafnaves" target="_blank" rel="noopener">GitHub</a>
+      </div>
+
+      <div class="deltas" role="list" aria-label="Resultados em produção">
+        <div class="delta" role="listitem">
+          <span class="before">2–3 meses</span>
+          <div class="after"><span class="arrow">→</span>30 min</div>
+          <p>por estudo de valor agregado da linha de montagem</p>
+        </div>
+        <div class="delta" role="listitem">
+          <span class="before">6–7 horas</span>
+          <div class="after"><span class="arrow">→</span>5 min</div>
+          <p>para fechar indicadores de logística e comércio exterior</p>
+        </div>
+        <div class="delta" role="listitem">
+          <span class="before">linha base</span>
+          <div class="after"><span class="arrow">→</span>+6%</div>
+          <p>de valor agregado na linha, após mudança sugerida pelos dados</p>
+        </div>
+        <div class="delta" role="listitem">
+          <span class="before">60% de precisão</span>
+          <div class="after"><span class="arrow">→</span>80%</div>
+          <p>na identidade de operadores com re-identificação própria</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <section class="block" id="projetos">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">Em produção</span>
+        <h2>Projetos principais</h2>
+      </div>
+
+      <div class="body-col">
+        <article class="project" id="ava">
+          <div class="project-top">
+            <h3>AVA · Análise de Valor Agregado</h3>
+            <span class="status">em produção · HPE Automotores</span>
+          </div>
+          <p class="summary">Automatizei a cronoanálise da linha de montagem com visão computacional. O sistema mede quanto do tempo de cada operador é trabalho produtivo e quanto se perde em deslocamento e espera, rodando em computadores da fábrica sem GPU.</p>
+
+          <div class="flow-wrap">
+            <p class="flow-cap">Pipeline em cascata</p>
+            <ol class="flow">
+              <li><div class="node"><b>Vídeo da linha</b><small>quadros extraídos</small></div></li>
+              <li><div class="node"><b>Detecção</b><small>YOLO · 99%</small></div></li>
+              <li><div class="node hl"><b>Re-identificação</b><small>OSNet · recupera o ID</small></div></li>
+              <li><div class="node"><b>Tracker próprio</b><small>ByteTrack · tentative → confirmed → lost → deleted</small></div></li>
+              <li><div class="node"><b>Pós-processamento</b><small>valida e agrupa trilhas</small></div></li>
+              <li><div class="node"><b>Métricas e relatórios</b><small>heatmap · dashboard · PDF</small></div></li>
+            </ol>
+          </div>
+
+          <div class="cols">
+            <div>
+              <h4>O problema</h4>
+              <p>Detectar uma pessoa num quadro é fácil. O difícil é garantir que a pessoa do quadro 100 é a mesma do quadro 4.000. Na fábrica todos usam o mesmo uniforme, com piso e iluminação uniformes, e os trackers prontos trocavam a identidade de quem saía e voltava ao enquadramento.</p>
+            </div>
+            <div>
+              <h4>O que eu fiz</h4>
+              <ul>
+                <li>Anotei o dataset no Roboflow e escrevi scripts de data augmentation.</li>
+                <li>Treinei o detector YOLO e o modelo de re-identificação OSNet.</li>
+                <li>Construí um tracker próprio com máquina de estados.</li>
+                <li>Otimizei a inferência com OpenVINO para caber em CPU.</li>
+                <li>Criei um assistente de IA via MCP que gera relatórios, PDFs e planilhas.</li>
+              </ul>
+            </div>
+          </div>
+          <ul class="facts">
+            <li><strong>2–3 meses → 30 min</strong> por estudo</li>
+            <li><strong>+6%</strong> de valor agregado</li>
+            <li><strong>99%</strong> no detector</li>
+            <li><strong>60% → 80%</strong> precisão de identidade</li>
+          </ul>
+          <p class="stack">Stack: <span>Python, PyTorch, Ultralytics YOLO, torchreid (OSNet), ByteTrack, OpenCV, OpenVINO, Roboflow, FastAPI, React, MCP</span></p>
+        </article>
+
+        <article class="project" id="firebreak">
+          <div class="project-top">
+            <h3>Firebreak · Plataforma de dados e agentes de IA</h3>
+            <span class="status">em produção · Diretoria Industrial</span>
+          </div>
+          <p class="summary">Na Diretoria Industrial, cada área tinha seus dados num sistema diferente, e fechar um indicador exigia juntar tudo à mão. Construí um sistema de registro único que lê os sistemas existentes sem migração, calcula cada indicador num só lugar e avisa sozinho quando um número cruza um limiar.</p>
+
+          <div class="flow-wrap">
+            <p class="flow-cap">Fluxo de dado padronizado</p>
+            <ol class="flow">
+              <li><div class="node"><b>Fonte</b><small>ERP Oracle · MES SQL Server · SharePoint · Dataverse · PDFs</small></div></li>
+              <li><div class="node"><b>Ingestão</b><small>27 pipelines · proveniência selada</small></div></li>
+              <li><div class="node hl"><b>Objeto</b><small>ontologia · 41 tipos</small></div></li>
+              <li><div class="node"><b>Indicador</b><small>calculado num só lugar</small></div></li>
+              <li><div class="node"><b>Aviso</b><small>31 métricas com limiar</small></div></li>
+              <li><div class="node"><b>Tela e agentes</b><small>React · agentes com aprovação humana</small></div></li>
+            </ol>
+          </div>
+
+          <div class="cols">
+            <div>
+              <h4>O que eu fiz</h4>
+              <ul>
+                <li>Modelei o negócio como uma ontologia: cada objeto tem descrição, propriedades, relações e ações.</li>
+                <li>Cada carga registra o que entrou, quando, de onde e por quem.</li>
+                <li>Agentes de IA com MCP consultam os dados em linguagem natural e executam até 47 ações, sempre com aprovação humana antes de qualquer escrita.</li>
+                <li>Back-end em FastAPI com 11 domínios e front-end em React com design system próprio.</li>
+              </ul>
+            </div>
+            <div>
+              <h4>Qualidade e segurança</h4>
+              <ul>
+                <li>443 testes automatizados em 34 arquivos.</li>
+                <li>Scanners da TI sem achado crítico: 0 segredos expostos, 0 bibliotecas vulneráveis em 60 pacotes, 0 problemas de configuração.</li>
+                <li>Docker multi-estágio e CI/CD no GitLab.</li>
+              </ul>
+            </div>
+          </div>
+          <ul class="facts">
+            <li><strong>6–7 h → 5 min</strong> em vários processos</li>
+            <li><strong>270</strong> rotas de API</li>
+            <li><strong>73</strong> tabelas</li>
+            <li><strong>~3 meses</strong> de desenvolvimento</li>
+          </ul>
+          <p class="stack">Stack: <span>Python, FastAPI, SQLModel, PostgreSQL, Alembic, Oracle, SQL Server, Microsoft Graph, React, TypeScript, Tailwind, MCP, LangChain, Ollama, ChromaDB, Docker, GitLab CI, pytest</span></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="outros">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">Ferramentas e automações</span>
+        <h2>Outros projetos</h2>
+      </div>
+      <div class="body-col grid">
+        <article class="card">
+          <span class="tag">LLM · RAG</span>
+          <h3>Assistente de manual técnico (SAC)</h3>
+          <p>Chatbot que responde especificações de veículos consultando o manual técnico, com resposta fundamentada no documento e indicação da página de origem.</p>
+          <p class="result">474 páginas indexadas em 796 blocos, rodando 100% local para manter o dado do fabricante dentro da empresa.</p>
+          <p class="stack">LangChain, LangGraph, ChromaDB, Hugging Face, Ollama</p>
+        </article>
+        <article class="card">
+          <span class="tag">Automação</span>
+          <h3>Relatórios industriais automatizados</h3>
+          <p>Coleta dados de Oracle, SQL Server, intranet e pastas de rede e distribui relatórios de faturamento, liberações, reparos e alertas climáticos por e-mail.</p>
+          <p class="result">Elimina a consolidação manual com execução agendada.</p>
+          <p class="stack">Python, SQL, Pandas, Polars, Plotly, uv</p>
+        </article>
+        <article class="card">
+          <span class="tag">Dashboard</span>
+          <h3>Painel gerencial serverless</h3>
+          <p>Dashboard estático gerado a partir de planilhas e publicado numa pasta de rede, para contornar o bloqueio do firewall corporativo sem servidor rodando.</p>
+          <p class="result">Planilha → Parquet → JSON → build estático, sob demanda.</p>
+          <p class="stack">Polars, Next.js, React</p>
+        </article>
+        <article class="card">
+          <span class="tag">App desktop</span>
+          <h3>Data Workspace</h3>
+          <p>Aplicação para acompanhar programas de engenharia, substituindo planilhas complexas por métricas em tempo real, auto-save e lixeira com restauração.</p>
+          <p class="result">Desenhada a partir da rotina da usuária final.</p>
+          <p class="stack">Tauri (Rust), React, Recharts</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="open-source">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">No GitHub</span>
+        <h2>Projetos open source</h2>
+      </div>
+      <div class="body-col">
+        <article class="project" id="zeitgeist">
+          <div class="project-top">
+            <h3>Zeitgeist · Análise de sentimento em tempo real</h3>
+            <a class="tag" href="https://github.com/rafnaves/zeitgeist" target="_blank" rel="noopener">github.com/rafnaves/zeitgeist</a>
+          </div>
+          <p class="summary">Pipeline de engenharia de dados de ponta a ponta, com ETL e streaming, que captura notícias em tempo real, analisa o sentimento de cada texto com um modelo de NLP e mostra os resultados num dashboard interativo.</p>
+          <div class="flow-wrap">
+            <p class="flow-cap">Arquitetura de streaming</p>
+            <ol class="flow">
+              <li><div class="node"><b>Notícias</b><small>RSS · Feedparser</small></div></li>
+              <li><div class="node"><b>Kafka</b><small>mensageria · modo KRaft</small></div></li>
+              <li><div class="node hl"><b>Spark + BERT</b><small>Structured Streaming · Transformers multilíngue</small></div></li>
+              <li><div class="node"><b>PostgreSQL</b><small>armazenamento</small></div></li>
+              <li><div class="node"><b>Dashboard</b><small>Streamlit · Plotly</small></div></li>
+            </ol>
+          </div>
+          <p class="stack">Stack: <span>Python 3.11, uv, Apache Kafka, Apache Spark (PySpark Structured Streaming), Hugging Face Transformers (BERT multilíngue), PostgreSQL, Streamlit, Plotly, Docker Compose</span></p>
+        </article>
+
+        <article class="project" id="zig">
+          <div class="project-top">
+            <h3>Analisador léxico e sintático para Zig</h3>
+            <a class="tag" href="https://github.com/rafnaves" target="_blank" rel="noopener">github.com/rafnaves</a>
+          </div>
+          <p class="summary">Analisador para a linguagem Zig escrito em Go. Lê o código-fonte, transforma cada número, operador, palavra-chave e símbolo em um token com tipo e valor, monta a árvore de sintaxe abstrata (AST) e imprime os tokens e a árvore no console.</p>
+          <div class="flow-wrap">
+            <p class="flow-cap">Etapas do analisador</p>
+            <ol class="flow">
+              <li><div class="node"><b>Código Zig</b><small>lido como string</small></div></li>
+              <li><div class="node"><b>Lexer</b><small>expressões regulares</small></div></li>
+              <li><div class="node"><b>Tokens</b><small>tipo e valor</small></div></li>
+              <li><div class="node hl"><b>Parser</b><small>monta a AST</small></div></li>
+              <li><div class="node"><b>Saída</b><small>tokens e AST no console</small></div></li>
+            </ol>
+          </div>
+          <p class="stack">Stack: <span>Go, expressões regulares, análise léxica e sintática</span></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="pesquisa">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">Iniciação científica</span>
+        <h2>Pesquisa</h2>
+      </div>
+      <div class="body-col grid">
+        <article class="card">
+          <span class="tag">TCC · machine learning</span>
+          <h3>Stalker Detector</h3>
+          <p>Detecção de rastreadores Bluetooth maliciosos, como AirTags usados para seguir pessoas, com um motor de três filtros em cascata: frequência de exposição, co-movimento por distância de Haversine e persistência temporal.</p>
+          <p class="result">98% de recall e F1 de 82,1% no dataset de campo BLE-Doubt, superando em recall o estado da arte, com validação estratificada 70/30.</p>
+        </article>
+        <article class="card">
+          <span class="tag">Artigo · LLMs</span>
+          <h3>Sumarização com LLMs</h3>
+          <p>Aplicação full-stack para comparar sumarização extrativa e abstrativa com engenharia de prompt orientada ao domínio acadêmico, do protótipo em Figma à análise dos resultados.</p>
+          <p class="result">Superou ChatGPT e DeepSeek em ROUGE-1 e ROUGE-L em textos acadêmicos. Apresentado em evento da UFCAT.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="trajetoria">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">Experiência e formação</span>
+        <h2>Trajetória</h2>
+      </div>
+      <div class="body-col">
+        <ol class="timeline">
+          <li>
+            <span class="when">jan 2026 – atual</span>
+            <div>
+              <h3>AI and Data Engineer</h3>
+              <p class="org">HPE Automotores do Brasil (Mitsubishi) · Catalão, GO</p>
+              <p>Grupo de inovação da área industrial, aplicando visão computacional, agentes de IA e engenharia de dados aos processos da montadora.</p>
+            </div>
+          </li>
+          <li>
+            <span class="when">mai 2024 – ago 2025</span>
+            <div>
+              <h3>Estagiário de desenvolvimento</h3>
+              <p class="org">Universidade Federal de Catalão (UFCAT)</p>
+              <p>Plataforma web de matrícula que substituiu um processo por formulários em que alunos perdiam a vaga. Começou como iniciação científica; foi meu primeiro contato com Docker e servidores Linux.</p>
+            </div>
+          </li>
+          <li>
+            <span class="when">2021 – 2026</span>
+            <div>
+              <h3>Bacharelado em Ciência da Computação</h3>
+              <p class="org">Universidade Federal de Catalão (UFCAT)</p>
+              <p>Iniciação científica, Maratona de Programação da SBC e um analisador léxico e sintático para a linguagem Zig, escrito em Go.</p>
+            </div>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="habilidades">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">Ferramentas</span>
+        <h2>Habilidades</h2>
+      </div>
+      <dl class="body-col skills">
+        <div><dt>IA e LLMs</dt><dd>Agentes, MCP, RAG, LangChain, LangGraph, Ollama, function calling, engenharia de prompt</dd></div>
+        <div><dt>Visão, ML e NLP</dt><dd>PyTorch, Hugging Face Transformers, BERT, YOLO, OpenCV, OpenVINO, scikit-learn, séries temporais</dd></div>
+        <div><dt>Dados</dt><dd>SQL, PostgreSQL, Oracle, SQL Server, ETL/ELT, streaming com Kafka, PySpark, modelagem de dados, Pandas, Polars</dd></div>
+        <div><dt>Software</dt><dd>Python, TypeScript, Go, FastAPI, React, Streamlit, APIs REST, testes automatizados</dd></div>
+        <div><dt>Infra</dt><dd>Docker, Docker Compose, Linux, Git, CI/CD, AWS</dd></div>
+        <div><dt>Desenvolvimento com IA</dt><dd>Claude Code, Cursor, GitHub Copilot</dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="block" id="certificacoes">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="label">Credenciais</span>
+        <h2>Certificações</h2>
+      </div>
+      <ul class="body-col certs">
+        <li><span class="issuer">Anthropic</span><a href="https://verify.skilljar.com/c/sdctmyezz6cz" target="_blank" rel="noopener">Advanced Model Context Protocol</a></li>
+        <li><span class="issuer">Amazon Web Services</span><a href="https://www.credly.com/badges/dd132434-2c2c-40c1-aa9d-1128e2bb001f/linked_in_profile" target="_blank" rel="noopener">AWS MLOps Demonstrated</a></li>
+        <li><span class="issuer">Rocketseat</span><a href="https://app.rocketseat.com.br/certificates/a1b8a65b-a7cc-41df-81eb-c2d0b91a8d19" target="_blank" rel="noopener">Especialização em Machine Learning e IA</a></li>
+        <li><span class="issuer">Rocketseat</span><a href="https://app.rocketseat.com.br/certificates/0d871a9d-8bf4-4ef4-8e06-0f71c1383cd2" target="_blank" rel="noopener">Especialização em Python</a></li>
+        <li><span class="issuer">Google · Coursera</span><a href="https://www.coursera.org/account/accomplishments/professional-cert/785Q4G3GPIJC" target="_blank" rel="noopener">Cybersecurity Professional Certificate</a></li>
+        <li><span class="issuer">DIO</span><a href="https://www.dio.me/certificate/PO5JALPA/share" target="_blank" rel="noopener">Inteligência Artificial aplicada a Dados</a></li>
+        <li><span class="issuer">Cisco Networking Academy</span><a href="https://www.netacad.com/certificates/?issuanceId=d2055d44-6c67-4706-a855-5242c9f458ad" target="_blank" rel="noopener">Conceitos de Redes</a></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="contact" id="contato">
+    <div class="wrap">
+      <p class="eyebrow">Contato</p>
+      <h2>Vamos conversar</h2>
+      <p>Estou aberto a vagas de engenharia de IA, dados e software, remotas ou nas regiões de Goiânia, Triângulo Mineiro, Belo Horizonte e Campinas.</p>
+      <div class="email-row">
+        <span class="email" id="email">contatorafaelnaves@icloud.com</span>
+        <button class="btn" type="button" id="copy-email">Copiar e-mail</button>
+        <span class="copied" id="copied" aria-live="polite"></span>
+      </div>
+      <div class="hero-links">
+        <a class="btn" href="https://www.linkedin.com/in/rafael-naves-ai" target="_blank" rel="noopener">linkedin.com/in/rafael-naves-ai</a>
+        <a class="btn" href="https://github.com/rafnaves" target="_blank" rel="noopener">github.com/rafnaves</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Rafael Naves · Projetos da HPE Automotores descritos com autorização para divulgação.</div>
+</footer>
+
+<script>
+(function () {
+  var btn = document.getElementById('copy-email');
+  var email = document.getElementById('email');
+  var out = document.getElementById('copied');
+  function selectText() {
+    var r = document.createRange();
+    r.selectNodeContents(email);
+    var s = window.getSelection();
+    s.removeAllRanges();
+    s.addRange(r);
+  }
+  btn.addEventListener('click', function () {
+    var text = email.textContent.trim();
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(function () {
+        out.textContent = 'E-mail copiado';
+      }).catch(function () {
+        selectText();
+        out.textContent = 'Selecionado. Use Ctrl+C para copiar.';
+      });
+    } else {
+      selectText();
+      out.textContent = 'Selecionado. Use Ctrl+C para copiar.';
+    }
+  });
+})();
+</script>
+</body>
+</html>
