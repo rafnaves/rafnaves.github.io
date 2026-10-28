@@ -1,6 +1,6 @@
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
-import type { DetailBlock, FeaturedProject } from "@/types";
+import type { DetailBlock, FeaturedProject, HowItWorks } from "@/types";
 import { FlowDiagram } from "./FlowDiagram";
 import { MediaGallery } from "./MediaGallery";
 import { MediaPlayer } from "./MediaPlayer";
@@ -9,9 +9,12 @@ type ProjectFeaturedProps = {
   project: FeaturedProject;
 };
 
+/**
+ * Reading order: what it is (summary), seeing it work (media), how it works in plain words,
+ * the technical pipeline, then the details for whoever wants to dig in.
+ */
 export function ProjectFeatured({ project }: ProjectFeaturedProps) {
-  const [firstDetail, ...otherDetails] = project.details;
-  const twoColumns = otherDetails.length > 0;
+  const [lead, ...rest] = project.summary;
   const titleId = `${project.id}-titulo`;
 
   return (
@@ -40,23 +43,35 @@ export function ProjectFeatured({ project }: ProjectFeaturedProps) {
             {project.status}
           </Badge>
         </div>
-        <p className="measure text-lg leading-relaxed">{project.summary}</p>
+        <div className="measure grid gap-4">
+          <p className="text-lg leading-relaxed sm:text-xl">{lead}</p>
+          {rest.map((paragraph) => (
+            <p key={paragraph} className="leading-relaxed sm:text-lg">
+              {paragraph}
+            </p>
+          ))}
+        </div>
       </header>
 
       {project.showcase.length === 1 && <MediaPlayer media={project.showcase[0]} />}
       {project.showcase.length > 1 && <MediaGallery items={project.showcase} note={project.showcaseNote} />}
 
+      {project.howItWorks && <HowItWorksView block={project.howItWorks} />}
+
       <FlowDiagram steps={project.flow} label={`Etapas do ${project.name}`} />
 
-      <div className={cn("grid gap-10", twoColumns && "md:grid-cols-2 md:gap-12")}>
-        <div className="grid content-start gap-8">
-          <DetailBlockView block={firstDetail} />
-          {project.aside && <MediaPlayer media={project.aside} />}
+      {project.details.map((block, index) => (
+        <div
+          key={block.heading}
+          className={cn(
+            "grid gap-8",
+            index === 0 && project.aside && "md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:gap-12",
+          )}
+        >
+          <DetailBlockView block={block} />
+          {index === 0 && project.aside && <MediaPlayer media={project.aside} className="md:mt-10" />}
         </div>
-        {otherDetails.map((block) => (
-          <DetailBlockView key={block.heading} block={block} />
-        ))}
-      </div>
+      ))}
 
       <div className="grid gap-1.5 font-mono text-xs leading-relaxed text-muted-foreground">
         {project.figures && <p>{project.figures}</p>}
@@ -66,24 +81,37 @@ export function ProjectFeatured({ project }: ProjectFeaturedProps) {
   );
 }
 
+function HowItWorksView({ block }: { block: HowItWorks }) {
+  return (
+    <div>
+      <h4 className="mb-4 font-display text-lg font-bold">{block.heading}</h4>
+      <ol className="grid gap-6 md:grid-cols-3 md:gap-8">
+        {block.steps.map((step) => (
+          <li key={step.title} className="border-t-2 border-t-foreground pt-3">
+            <p className="font-display text-xl font-extrabold [font-stretch:108%]">{step.title}</p>
+            <p className="mt-1.5 leading-relaxed">{step.text}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
 function DetailBlockView({ block }: { block: DetailBlock }) {
   return (
     <div className="min-w-0">
       <h4 className="mb-3 font-display text-lg font-bold">{block.heading}</h4>
-      {block.kind === "text" ? (
-        <p className="measure leading-relaxed">{block.body}</p>
-      ) : (
-        <ul className="grid max-w-[72ch] gap-2.5">
-          {block.items.map((item) => (
-            <li
-              key={item}
-              className="relative pl-5 leading-relaxed before:absolute before:top-[0.8em] before:left-0 before:h-px before:w-2.5 before:bg-signal"
-            >
-              {item}
-            </li>
-          ))}
-        </ul>
-      )}
+      <ul className="grid max-w-[72ch] gap-2.5">
+        {block.items.map((item) => (
+          <li
+            key={item.text}
+            className="relative pl-5 leading-relaxed before:absolute before:top-[0.8em] before:left-0 before:h-px before:w-2.5 before:bg-signal"
+          >
+            {item.lead && <strong className="font-semibold">{item.lead}: </strong>}
+            {item.text}
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }

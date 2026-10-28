@@ -9,7 +9,7 @@ export const avaLineVideo: VideoMedia = {
   kind: "video",
   label: "AVA na linha",
   caption:
-    "Cada operador recebe um ID e uma atividade: instalando peça, coletando peça, se movimentando ou parado. Rostos borrados.",
+    "Cada operador recebe um ID e a atividade que está fazendo, marcados sobre o vídeo. Rostos borrados.",
   alt: "Vista de cima de uma estação da linha de montagem, com caixas coloridas em volta de cada operador e a atividade de cada um escrita sobre a caixa.",
   sources: [
     { src: "/assets/ava/ava-linha.webm", type: "video/webm" },

@@ -42,7 +42,7 @@ export const deltas: readonly Delta[] = [
   {
     before: "2–3 meses",
     value: "30 min",
-    label: "por estudo de valor agregado da linha de montagem",
+    label: "por estudo de balanceamento da linha de montagem",
     projectId: "ava",
     projectLabel: "AVA",
   },

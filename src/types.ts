@@ -71,22 +71,37 @@ export type ImageMedia = MediaBase & {
 
 export type Media = VideoMedia | ImageMedia;
 
-export type DetailBlock =
-  | { kind: "text"; heading: string; body: string }
-  | { kind: "list"; heading: string; items: readonly string[] };
+/** A bullet; the optional lead is shown in bold before the text ("Detecção: ..."). */
+export type Bullet = {
+  lead?: string;
+  text: string;
+};
+
+export type DetailBlock = {
+  heading: string;
+  items: readonly Bullet[];
+};
+
+/** Plain-language steps ("Mede", "Analisa", "Propõe") shown before the technical diagram. */
+export type HowItWorks = {
+  heading: string;
+  steps: readonly { title: string; text: string }[];
+};
 
 export type FeaturedProject = {
   id: string;
   name: string;
   subtitle: string;
   status: string;
-  summary: string;
+  /** What the project is and what it changed; the first paragraph reads as the lead. */
+  summary: readonly [string, ...string[]];
   /** One item renders as a single player, several as a gallery. */
   showcase: readonly Media[];
   showcaseNote?: string;
+  howItWorks?: HowItWorks;
   flow: readonly FlowStep[];
   details: readonly [DetailBlock, ...DetailBlock[]];
-  /** Extra media placed under the first detail block. */
+  /** Extra media placed beside the detail bullets. */
   aside?: Media;
   /** One line of size figures, e.g. "270 rotas de API · 73 tabelas". */
   figures?: string;
