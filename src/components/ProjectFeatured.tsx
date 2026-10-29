@@ -62,16 +62,13 @@ export function ProjectFeatured({ project }: ProjectFeaturedProps) {
 
       <FlowDiagram steps={project.flow} label={`Etapas do ${project.name}`} />
 
-      {project.details.map((block, index) => (
+      {project.details.map((block) => (
         <div
           key={block.heading}
-          className={cn(
-            "grid gap-8",
-            index === 0 && project.aside && "md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:gap-12",
-          )}
+          className={cn("grid gap-8", block.aside && "md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:gap-12")}
         >
           <DetailBlockView block={block} />
-          {index === 0 && project.aside && <MediaPlayer media={project.aside} className="md:mt-10" />}
+          {block.aside && <MediaPlayer media={block.aside} className="md:mt-10" />}
         </div>
       ))}
 

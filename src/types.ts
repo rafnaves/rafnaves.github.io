@@ -83,6 +83,8 @@ export type Bullet = {
 export type DetailBlock = {
   heading: string;
   items: readonly Bullet[];
+  /** Media shown beside the bullets on wide screens, under them on phones. */
+  aside?: Media;
 };
 
 /** Plain-language steps ("Mede", "Analisa", "Propõe") shown before the technical diagram. */
@@ -104,8 +106,6 @@ export type FeaturedProject = {
   howItWorks?: HowItWorks;
   flow: readonly FlowStep[];
   details: readonly [DetailBlock, ...DetailBlock[]];
-  /** Extra media placed beside the detail bullets. */
-  aside?: Media;
   /** One line of size figures, e.g. "270 rotas de API · 73 tabelas". */
   figures?: string;
   stack: string;

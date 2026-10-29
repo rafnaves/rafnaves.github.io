@@ -98,7 +98,7 @@ export const ava: FeaturedProject = {
   status: "em produção · HPE Automotores (Mitsubishi)",
   summary: [
     "O AVA mede, com visão computacional, quanto do tempo de cada operador da linha de montagem é trabalho que agrega valor e quanto se perde em deslocamento e espera. Com esses dados, LLMs analisam os padrões de montagem e propõem melhorias no balanceamento da linha, ou seja, como redistribuir as tarefas entre os postos para montar mais carros no mesmo tempo.",
-    "Antes, esse estudo (a cronoanálise) era feito à mão: levava de 2 a 3 meses, dependia da observação de cada analista e travava as decisões de balanceamento. Com o AVA, sai em 30 minutos, rodando nos computadores da própria fábrica, sem GPU. Uma mudança sugerida pelos dados do sistema gerou +6% de valor agregado na linha.",
+    "Antes, esse estudo (a cronoanálise) era feito à mão: levava meses, dependia da observação de cada analista e travava as decisões de balanceamento. Com o AVA, ele sai em minutos.",
   ],
   showcase: [avaLineVideo],
   howItWorks: {
@@ -129,23 +129,48 @@ export const ava: FeaturedProject = {
   ],
   details: [
     {
+      heading: "Impacto",
+      items: [
+        {
+          text: ["A cronoanálise caiu de ", { strong: "2–3 meses para 30 minutos" }, " por estudo."],
+        },
+        {
+          text: [{ strong: "+6% de valor agregado" }, " na linha com uma mudança sugerida pelos dados do sistema."],
+        },
+        {
+          text: [{ strong: "99% de acurácia" }, " na detecção de operadores."],
+        },
+        {
+          text: [
+            "Precisão de identidade de ",
+            { strong: "cerca de 60% para 80%" },
+            ", onde os trackers prontos erravam cerca de 40% das associações de ID.",
+          ],
+        },
+        {
+          text: ["Roda ", { strong: "sem GPU" }, ", nos computadores da própria fábrica."],
+        },
+      ],
+    },
+    {
       heading: "Por dentro",
+      aside: avaAssistantScreen,
       items: [
         {
           lead: "Detecção",
-          text: "anotei o dataset no Roboflow, criei scripts de data augmentation e treinei o YOLO em PyTorch, chegando a 99% de acurácia na detecção de operadores.",
+          text: "anotei o dataset no Roboflow, criei scripts de data augmentation e treinei o YOLO em PyTorch.",
         },
         {
           lead: "Identidade",
-          text: "na fábrica, todos usam o mesmo uniforme, sob a mesma iluminação, e os trackers prontos erravam cerca de 40% das associações de ID. Treinei re-identificação (OSNet) e construí um tracker próprio sobre ByteTrack, elevando a precisão de identidade de cerca de 60% para 80%.",
+          text: "na fábrica, todos usam o mesmo uniforme, sob a mesma iluminação, e os trackers prontos trocavam o ID de quem saía e voltava ao enquadramento. Treinei re-identificação (OSNet) e construí um tracker próprio sobre ByteTrack.",
         },
         {
           lead: "Validação",
           text: "um pós-processamento com múltiplos modelos confere os resultados e consolida trilhas fragmentadas antes de gerar as métricas.",
         },
         {
-          lead: "Sem GPU",
-          text: "otimizei a inferência com OpenVINO até o pipeline inteiro caber no hardware da fábrica.",
+          lead: "Inferência",
+          text: "otimizei com OpenVINO até o pipeline inteiro caber no hardware da fábrica.",
         },
         {
           lead: "Análise e relatórios",
@@ -154,7 +179,6 @@ export const ava: FeaturedProject = {
       ],
     },
   ],
-  aside: avaAssistantScreen,
   stack:
     "Python, PyTorch, Ultralytics YOLO, torchreid (OSNet), ByteTrack, OpenCV, OpenVINO, Roboflow, LLMs, MCP, FastAPI, React",
 };
