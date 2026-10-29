@@ -71,10 +71,13 @@ export type ImageMedia = MediaBase & {
 
 export type Media = VideoMedia | ImageMedia;
 
+/** Inline text; `{ strong }` pieces are shown in bold. */
+export type RichText = string | readonly (string | { strong: string })[];
+
 /** A bullet; the optional lead is shown in bold before the text ("Detecção: ..."). */
 export type Bullet = {
   lead?: string;
-  text: string;
+  text: RichText;
 };
 
 export type DetailBlock = {

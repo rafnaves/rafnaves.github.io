@@ -26,16 +26,62 @@ export const firebreak: FeaturedProject = {
   ],
   details: [
     {
+      heading: "Impacto",
+      items: [
+        {
+          text: [
+            "Processos de ",
+            { strong: "6–7 horas caíram para cerca de 5 minutos, com acesso instantâneo" },
+            ", como o cálculo de indicadores da Diretoria Industrial e o rastreamento total de carros e containers, do início do processo ao fim.",
+          ],
+        },
+        {
+          // ~30 h/month: two 6-7 h processes, one weekly and one monthly (4 x 6 h + 1 x 6 h, rounded down).
+          text: [
+            { strong: "Cerca de 30 horas de trabalho manual devolvidas por mês" },
+            " à Diretoria Industrial, somando um processo semanal e um mensal.",
+          ],
+        },
+        {
+          text: [
+            "Indicadores que levavam ",
+            { strong: "meses de coleta manual em planilha" },
+            " agora saem do sistema com origem rastreável.",
+          ],
+        },
+        {
+          text: [
+            { strong: "27 pipelines de ingestão unificando 8 fontes" },
+            " num modelo único em PostgreSQL.",
+          ],
+        },
+        {
+          text: [{ strong: "31 métricas monitoradas por limiar" }, ", com aviso automático."],
+        },
+        {
+          text: [
+            "Agentes de IA com ",
+            { strong: "até 47 ações no sistema" },
+            ", sempre com aprovação humana antes de qualquer escrita.",
+          ],
+        },
+        {
+          text: [
+            "Aprovado nos scanners de segurança da TI, ",
+            { strong: "sem achado crítico pendente" },
+            ".",
+          ],
+        },
+      ],
+    },
+    {
       heading: "O que eu fiz",
       items: [
-        // ~30 h/month: two 6-7 h processes, one weekly and one monthly (4 x 6 h + 1 x 6 h, rounded down).
-        { text: "Devolvi cerca de 30 horas de trabalho manual por mês à Diretoria Industrial: os dois processos mais demorados, um semanal e um mensal, passaram a sair em minutos." },
-        { text: "Levantei as necessidades com qualidade, logística e manufatura e unifiquei 8 fontes com 27 pipelines ETL num modelo único em PostgreSQL." },
+        { text: "Levantei as necessidades com qualidade, logística e manufatura e conectei ERP (Oracle), MES (SQL Server), SharePoint, OneDrive, Planner e Dataverse." },
         { text: "Modelei o negócio como uma ontologia: cada objeto tem descrição, propriedades, relações e ações." },
-        { text: "Cada carga registra o que entrou, quando, de onde e por quem, e 31 indicadores têm alerta automático." },
-        { text: "Agentes de IA (MCP, LLMs locais, RAG) respondem em linguagem natural e executam até 47 ações, sempre com aprovação humana." },
-        { text: "Entreguei de ponta a ponta: microsserviços em FastAPI com 11 domínios e front-end em React com design system próprio." },
-        { text: "Passou nos scanners de segurança da TI sem achado crítico; Docker multi-estágio e CI/CD no GitLab." },
+        { text: "Cada carga registra o que entrou, quando, de onde e por quem, com linhagem até a fonte." },
+        { text: "Implementei os agentes de IA com MCP, LLMs locais e RAG, que respondem em linguagem natural." },
+        { text: "Entreguei de ponta a ponta: microsserviços em FastAPI com 11 domínios, front-end em React com design system próprio, Docker multi-estágio e CI/CD no GitLab." },
       ],
     },
   ],

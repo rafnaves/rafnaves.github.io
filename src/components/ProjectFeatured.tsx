@@ -1,9 +1,11 @@
 import { Badge } from "@/components/ui/badge";
+import { toPlainText } from "@/lib/rich-text";
 import { cn } from "@/lib/utils";
 import type { DetailBlock, FeaturedProject, HowItWorks } from "@/types";
 import { FlowDiagram } from "./FlowDiagram";
 import { MediaGallery } from "./MediaGallery";
 import { MediaPlayer } from "./MediaPlayer";
+import { RichTextView } from "./RichTextView";
 
 type ProjectFeaturedProps = {
   project: FeaturedProject;
@@ -104,11 +106,11 @@ function DetailBlockView({ block }: { block: DetailBlock }) {
       <ul className="grid max-w-[72ch] gap-2.5">
         {block.items.map((item) => (
           <li
-            key={item.text}
+            key={toPlainText(item.text)}
             className="relative pl-5 leading-relaxed before:absolute before:top-[0.8em] before:left-0 before:h-px before:w-2.5 before:bg-signal"
           >
             {item.lead && <strong className="font-semibold">{item.lead}: </strong>}
-            {item.text}
+            <RichTextView text={item.text} />
           </li>
         ))}
       </ul>
