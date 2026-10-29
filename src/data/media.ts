@@ -36,7 +36,7 @@ export const firebreakClips: readonly VideoMedia[] = [
     id: "firebreak-copiloto",
     kind: "video",
     label: "Copiloto",
-    caption: "O agente monta planilhas, reports e relatórios, e nada sai sem aprovação humana.",
+    caption: "O agente monta planilhas, reports e relatórios via tool calling, com human-in-the-loop antes de qualquer envio.",
     alt: "Copiloto do Firebreak com um plano de quatro passos, o último aguardando revisão, ao lado da prévia de um relatório com gráfico de barras.",
     sources: [{ src: "/assets/firebreak/copiloto.mp4", type: "video/mp4" }],
     poster: "/assets/firebreak/copiloto-poster.webp",

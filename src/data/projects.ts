@@ -22,7 +22,7 @@ export const firebreak: FeaturedProject = {
     { title: "Objeto", detail: "ontologia", highlight: true },
     { title: "Indicador", detail: "calculado num só lugar" },
     { title: "Aviso", detail: "limiar por métrica" },
-    { title: "Tela e agentes", detail: "React · agentes com aprovação humana" },
+    { title: "Tela e agentes", detail: "React · agentes com human-in-the-loop" },
   ],
   details: [
     {
@@ -60,9 +60,9 @@ export const firebreak: FeaturedProject = {
         },
         {
           text: [
-            "Agentes de IA com ",
-            { strong: "até 47 ações no sistema" },
-            ", sempre com aprovação humana antes de qualquer escrita.",
+            "Implementei agentes de IA com MCP, tool calling e LLMs locais que consultam a produção em linguagem natural, montam relatórios e executam ",
+            { strong: "até 47 ações" },
+            ", com human-in-the-loop antes de qualquer escrita.",
           ],
         },
         {
@@ -80,7 +80,7 @@ export const firebreak: FeaturedProject = {
         { text: "Levantei as necessidades com qualidade, logística e manufatura e conectei ERP (Oracle), MES (SQL Server), SharePoint, OneDrive, Planner e Dataverse." },
         { text: "Modelei o negócio como uma ontologia: cada objeto tem descrição, propriedades, relações e ações." },
         { text: "Cada carga registra o que entrou, quando, de onde e por quem, com linhagem até a fonte." },
-        { text: "Implementei os agentes de IA com MCP, LLMs locais e RAG, que respondem em linguagem natural." },
+        { text: "Conectei RAG sobre a documentação técnica aos agentes." },
         { text: "Entreguei de ponta a ponta: microsserviços em FastAPI com 11 domínios, front-end em React com design system próprio, Docker multi-estágio e CI/CD no GitLab." },
       ],
     },
